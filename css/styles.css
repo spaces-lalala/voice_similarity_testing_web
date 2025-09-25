@@ -10,6 +10,18 @@ body {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
     color: #333;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* 防止水平滾動 */
+}
+
+/* 確保沒有活動狀態的螢幕完全隱藏 */
+.screen:not(.active) {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    left: -9999px !important;
 }
 
 .container {
@@ -18,7 +30,7 @@ body {
     padding: 20px;
 }
 
-/* 螢幕切換 */
+/* 螢幕切換 - 確保只顯示當前活動頁面 */
 .screen {
     display: none;
     background: white;
@@ -26,11 +38,30 @@ body {
     box-shadow: 0 20px 40px rgba(0,0,0,0.1);
     min-height: calc(100vh - 40px);
     overflow: hidden;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
 }
 
 .screen.active {
     display: block;
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     animation: fadeIn 0.5s ease-in;
+}
+
+/* 確保容器正確定位 */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    min-height: 100vh;
 }
 
 @keyframes fadeIn {
@@ -415,6 +446,16 @@ body {
     color: white;
     position: relative;
     overflow: hidden;
+    border-radius: 0; /* 載入頁面全螢幕效果 */
+}
+
+#break-screen.active {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
 }
 
 .loading-screen {
@@ -676,6 +717,16 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#completion-screen.active {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    background: white;
 }
 
 .completion-content {

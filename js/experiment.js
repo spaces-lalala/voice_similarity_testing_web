@@ -498,10 +498,23 @@ class ExperimentController {
     }
 
     showScreen(screenId) {
+        // 隱藏所有螢幕
         document.querySelectorAll('.screen').forEach(screen => {
             screen.classList.remove('active');
+            screen.style.display = 'none';
         });
-        document.getElementById(screenId).classList.add('active');
+        
+        // 顯示目標螢幕
+        const targetScreen = document.getElementById(screenId);
+        targetScreen.style.display = screenId === 'break-screen' ? 'flex' : 'block';
+        targetScreen.classList.add('active');
+        
+        // 強制重新渲染以確保完全切換
+        setTimeout(() => {
+            targetScreen.scrollTop = 0;
+        }, 50);
+        
+        console.log(`切換到頁面: ${screenId}`);
     }
 }
 
