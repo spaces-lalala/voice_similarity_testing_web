@@ -384,11 +384,47 @@ body {
     padding: 6px 12px;
 }
 
+/* 播放控制按鈕組 */
+.playback-controls {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    max-width: 500px;
+    padding: 0 20px;
+}
+
+.playback-controls .btn {
+    flex: 1;
+    max-width: 220px;
+    min-width: 180px;
+    font-size: 0.95rem;
+    padding: 12px 16px;
+    text-align: center;
+    white-space: nowrap;
+}
+
 #play-both {
-    display: block;
-    margin: 0 auto;
-    font-size: 1rem;
-    padding: 10px 20px;
+    background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+    color: white;
+    border: none;
+}
+
+#play-both:hover {
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+    transform: translateY(-1px);
+}
+
+#play-simultaneously {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+}
+
+#play-simultaneously:hover {
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+    transform: translateY(-1px);
 }
 
 /* 評分區域 */
@@ -859,6 +895,18 @@ body {
         gap: 15px;
     }
     
+    /* 播放控制按鈕響應式 */
+    .playback-controls {
+        flex-direction: column;
+        gap: 10px;
+        margin: 20px 0;
+    }
+    
+    .playback-controls .btn {
+        width: 100%;
+        max-width: none;
+    }
+    
     .rating-buttons {
         grid-template-columns: 1fr;
         max-width: 280px;
@@ -944,6 +992,20 @@ body {
     
     .rating-label {
         font-size: 0.7rem;
+    }
+    
+    /* 超小螢幕播放按鈕 */
+    .playback-controls {
+        flex-direction: column;
+        gap: 8px;
+        margin: 15px auto;
+        padding: 0 10px;
+    }
+    
+    .playback-controls .btn {
+        font-size: 0.85rem;
+        padding: 10px 12px;
+        min-width: auto;
     }
     
     .loading-header h2 {

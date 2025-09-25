@@ -142,6 +142,11 @@ class ExperimentController {
             this.playBothAudios();
         });
 
+        // 同時播放按鈕
+        document.getElementById('play-simultaneously').addEventListener('click', () => {
+            this.playSimultaneously();
+        });
+
         // 下載數據備份
         document.getElementById('download-data').addEventListener('click', () => {
             this.downloadDataBackup();
@@ -489,6 +494,29 @@ class ExperimentController {
             
         } catch (error) {
             console.warn('順序播放失敗:', error);
+        }
+    }
+
+    async playSimultaneously() {
+        const originalAudio = document.getElementById('original-audio');
+        const shadowingAudio = document.getElementById('shadowing-audio');
+        
+        try {
+            // 重置播放位置
+            originalAudio.currentTime = 0;
+            shadowingAudio.currentTime = 0;
+            
+            // 同時開始播放
+            const playPromises = [
+                originalAudio.play(),
+                shadowingAudio.play()
+            ];
+            
+            await Promise.all(playPromises);
+            
+        } catch (error) {
+            console.warn('同時播放失敗:', error);
+            alert('同時播放失敗，請檢查音檔是否已載入完成');
         }
     }
 
