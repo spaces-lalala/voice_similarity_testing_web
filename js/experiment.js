@@ -244,7 +244,7 @@ class ExperimentController {
         document.querySelector(`[data-rating="${rating}"]`).classList.add('selected');
         
         // 更新顯示文字
-        const labels = ['', '完全不相似', '非常不相似', '不相似', '普通', '相似', '非常相似', '完全相似'];
+        const labels = ['', '完全不相似', '不相似', '普通', '相似', '完全相似'];
         document.getElementById('selected-score').textContent = `${rating} - ${labels[rating]}`;
         
         // 啟用下一對按鈕
