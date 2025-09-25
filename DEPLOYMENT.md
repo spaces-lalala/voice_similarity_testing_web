@@ -133,13 +133,13 @@ GitHub Pages 自動提供 HTTPS，建議：
 ```
 audio/
 ├── block1/
-│   ├── original_1.mp3
-│   ├── shadowing_1.mp3
-│   ├── original_2.mp3
-│   ├── shadowing_2.mp3
+│   ├── original_1.flac
+│   ├── shadowing_1.flac
+│   ├── original_2.flac
+│   ├── shadowing_2.flac
 │   ├── ...
-│   ├── original_5.mp3
-│   └── shadowing_5.mp3
+│   ├── original_5.flac
+│   └── shadowing_5.flac
 ├── block2/
 │   └── ... (相同結構)
 └── ...

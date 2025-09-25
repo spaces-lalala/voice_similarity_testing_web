@@ -37,8 +37,8 @@ class ExperimentState {
             const blockData = [];
             for (let pair = 1; pair <= EXPERIMENT_CONFIG.pairsPerBlock; pair++) {
                 blockData.push({
-                    original: `audio/block${block}/original_${pair}.mp3`,
-                    shadowing: `audio/block${block}/shadowing_${pair}.mp3`,
+                    original: `audio/block${block}/original_${pair}.flac`,
+                    shadowing: `audio/block${block}/shadowing_${pair}.flac`,
                     id: `B${block}P${pair}`
                 });
             }
