@@ -142,11 +142,6 @@ class ExperimentController {
             this.playBothAudios();
         });
 
-        // 跳過休息
-        document.getElementById('skip-break').addEventListener('click', () => {
-            this.skipBreak();
-        });
-
         // 下載數據備份
         document.getElementById('download-data').addEventListener('click', () => {
             this.downloadDataBackup();
@@ -506,12 +501,18 @@ class ExperimentController {
         
         // 顯示目標螢幕
         const targetScreen = document.getElementById(screenId);
-        targetScreen.style.display = screenId === 'break-screen' ? 'flex' : 'block';
+        if (screenId === 'break-screen') {
+            targetScreen.style.display = 'flex';
+        } else {
+            targetScreen.style.display = 'flex';
+        }
         targetScreen.classList.add('active');
         
         // 強制重新渲染以確保完全切換
         setTimeout(() => {
-            targetScreen.scrollTop = 0;
+            if (targetScreen.scrollTop !== undefined) {
+                targetScreen.scrollTop = 0;
+            }
         }, 50);
         
         console.log(`切換到頁面: ${screenId}`);

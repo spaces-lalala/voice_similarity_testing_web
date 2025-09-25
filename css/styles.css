@@ -8,11 +8,11 @@
 body {
     font-family: 'Noto Sans TC', sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
+    height: 100vh;
     color: #333;
     margin: 0;
     padding: 0;
-    overflow-x: hidden; /* 防止水平滾動 */
+    overflow: hidden; /* 防止桌面版滾動 */
 }
 
 /* 確保沒有活動狀態的螢幕完全隱藏 */
@@ -27,7 +27,11 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 15px;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* 螢幕切換 - 確保只顯示當前活動頁面 */
@@ -36,22 +40,15 @@ body {
     background: white;
     border-radius: 20px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-    min-height: calc(100vh - 40px);
+    width: 100%;
+    height: calc(100vh - 30px);
     overflow: hidden;
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    right: 20px;
-    bottom: 20px;
+    position: relative;
 }
 
 .screen.active {
-    display: block;
-    position: relative;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    display: flex;
+    flex-direction: column;
     animation: fadeIn 0.5s ease-in;
 }
 
@@ -120,19 +117,21 @@ body {
 
 /* 歡迎頁面 */
 #welcome-screen {
-    padding: 40px;
+    padding: 30px 40px;
+    justify-content: space-between;
 }
 
 .header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 25px;
+    flex-shrink: 0;
 }
 
 .header h1 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-weight: 700;
     color: #2d3748;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 .header h1 i {
@@ -141,34 +140,42 @@ body {
 }
 
 .subtitle {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: #718096;
     font-weight: 300;
 }
 
 .content {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 40px;
+    grid-template-columns: 1.8fr 1fr;
+    gap: 30px;
     align-items: start;
+    flex-grow: 1;
+    min-height: 0;
+}
+
+.experiment-info {
+    overflow-y: auto;
 }
 
 .experiment-info h2, .participant-info h3 {
     color: #2d3748;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     font-weight: 600;
+    font-size: 1.3rem;
 }
 
 .experiment-info ul {
     list-style: none;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .experiment-info li {
-    padding: 10px 0;
+    padding: 6px 0;
     border-bottom: 1px solid #e2e8f0;
     position: relative;
-    padding-left: 30px;
+    padding-left: 25px;
+    font-size: 0.95rem;
 }
 
 .experiment-info li:before {
@@ -181,21 +188,26 @@ body {
 
 .rating-scale {
     background: #f7fafc;
-    padding: 20px;
+    padding: 15px;
     border-radius: 12px;
-    margin-top: 20px;
+    margin-top: 15px;
+}
+
+.rating-scale h3 {
+    margin-bottom: 12px;
+    font-size: 1.1rem;
 }
 
 .scale-container {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
-    margin-top: 15px;
+    gap: 8px;
+    margin-top: 12px;
 }
 
 .scale-item {
     text-align: center;
-    padding: 10px 5px;
+    padding: 8px 4px;
     background: white;
     border-radius: 8px;
     border: 2px solid #e2e8f0;
@@ -203,41 +215,46 @@ body {
 
 .scale-number {
     display: block;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: bold;
     color: #667eea;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
 }
 
 .scale-label {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: #4a5568;
+    line-height: 1.2;
 }
 
 /* 參與者資訊表單 */
 .participant-info {
     background: #f7fafc;
-    padding: 30px;
+    padding: 20px;
     border-radius: 12px;
+    height: fit-content;
+    max-height: 100%;
+    overflow-y: auto;
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
     font-weight: 500;
     color: #2d3748;
+    font-size: 0.9rem;
 }
 
 .form-group input, .form-group select {
     width: 100%;
-    padding: 10px;
+    padding: 8px;
     border: 2px solid #e2e8f0;
     border-radius: 8px;
-    font-size: 16px;
+    font-size: 14px;
     font-family: inherit;
     transition: border-color 0.3s ease;
 }
@@ -250,21 +267,25 @@ body {
 .checkbox-group label {
     display: flex;
     align-items: flex-start;
-    gap: 10px;
+    gap: 8px;
     cursor: pointer;
+    font-size: 0.85rem;
+    line-height: 1.4;
 }
 
 .checkbox-group input[type="checkbox"] {
     width: auto;
-    margin-top: 3px;
+    margin-top: 2px;
 }
 
 #start-experiment {
     grid-column: 1 / -1;
     justify-self: center;
-    font-size: 1.1rem;
-    padding: 15px 30px;
-    margin-top: 20px;
+    font-size: 1rem;
+    padding: 12px 25px;
+    margin-top: 15px;
+    align-self: end;
+    flex-shrink: 0;
 }
 
 /* 進度條 */
@@ -303,39 +324,48 @@ body {
 }
 
 /* 實驗內容 */
+#experiment-screen {
+    overflow: hidden;
+}
+
 .experiment-content {
-    padding: 40px;
+    padding: 25px 35px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .audio-section {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+    flex-shrink: 0;
 }
 
 .audio-section h3 {
     text-align: center;
     color: #2d3748;
-    margin-bottom: 30px;
-    font-size: 1.4rem;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
 }
 
 .audio-players {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    margin-bottom: 20px;
+    gap: 20px;
+    margin-bottom: 15px;
 }
 
 .audio-player {
     background: #f7fafc;
-    padding: 20px;
+    padding: 15px;
     border-radius: 12px;
     text-align: center;
 }
 
 .player-header h4 {
     color: #2d3748;
-    margin-bottom: 15px;
-    font-size: 1.1rem;
+    margin-bottom: 12px;
+    font-size: 1rem;
 }
 
 .player-header i {
@@ -345,42 +375,50 @@ body {
 
 .audio-player audio {
     width: 100%;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+    height: 32px;
 }
 
 .replay-btn {
-    font-size: 0.9rem;
-    padding: 8px 16px;
+    font-size: 0.85rem;
+    padding: 6px 12px;
 }
 
 #play-both {
     display: block;
     margin: 0 auto;
-    font-size: 1.1rem;
-    padding: 15px 30px;
+    font-size: 1rem;
+    padding: 10px 20px;
 }
 
 /* 評分區域 */
 .rating-section {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .rating-section h3 {
     color: #2d3748;
-    margin-bottom: 30px;
-    font-size: 1.4rem;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
 }
 
 .rating-buttons {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 12px;
+    margin-bottom: 15px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .rating-btn {
-    padding: 15px 10px;
+    padding: 12px 8px;
     background: #f7fafc;
     border: 2px solid #e2e8f0;
     border-radius: 12px;
@@ -389,37 +427,39 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+    min-height: 80px;
+    justify-content: center;
 }
 
 .rating-btn:hover {
     background: #667eea;
     color: white;
     border-color: #667eea;
-    transform: translateY(-3px);
+    transform: translateY(-2px);
 }
 
 .rating-btn.selected {
     background: #667eea;
     color: white;
     border-color: #667eea;
-    box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 6px 12px rgba(102, 126, 234, 0.3);
 }
 
 .rating-number {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: bold;
 }
 
 .rating-label {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     line-height: 1.2;
 }
 
 .selected-rating {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #2d3748;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 #selected-score {
@@ -430,11 +470,12 @@ body {
 /* 導航 */
 .navigation {
     text-align: center;
+    flex-shrink: 0;
 }
 
 #next-pair {
-    font-size: 1.1rem;
-    padding: 15px 30px;
+    font-size: 1rem;
+    padding: 12px 25px;
 }
 
 /* 休息頁面 - 遊戲載入風格 */
@@ -605,26 +646,6 @@ body {
     animation: pulse 1s ease-in-out infinite;
 }
 
-/* 載入動作按鈕 */
-.loading-actions {
-    margin-top: 30px;
-}
-
-.loading-actions .btn {
-    background: linear-gradient(45deg, #ff6b6b, #ffd700);
-    border: none;
-    color: #1a1a2e;
-    font-weight: bold;
-    padding: 15px 30px;
-    font-size: 1.1rem;
-    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
-}
-
-.loading-actions .btn:hover {
-    box-shadow: 0 12px 30px rgba(255, 107, 107, 0.5);
-    transform: translateY(-3px);
-}
-
 /* 載入粒子動畫 */
 .loading-particles {
     position: absolute;
@@ -714,9 +735,9 @@ body {
 
 /* 完成頁面 */
 #completion-screen {
-    display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    padding: 30px;
 }
 
 #completion-screen.active {
@@ -727,17 +748,19 @@ body {
     bottom: 0;
     z-index: 1000;
     background: white;
+    display: flex;
 }
 
 .completion-content {
     text-align: center;
-    padding: 40px;
+    width: 100%;
+    max-width: 600px;
 }
 
 .completion-content h2 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     color: #48bb78;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .completion-content h2 i {
@@ -745,17 +768,17 @@ body {
 }
 
 .completion-content > p {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: #4a5568;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .completion-stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    margin: 40px 0;
-    padding: 30px;
+    gap: 20px;
+    margin: 25px 0;
+    padding: 20px;
     background: #f7fafc;
     border-radius: 12px;
 }
@@ -766,22 +789,22 @@ body {
 
 .stat-number {
     display: block;
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: bold;
     color: #667eea;
     margin-bottom: 5px;
 }
 
 .stat-label {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: #4a5568;
 }
 
 .upload-status {
-    font-size: 1.1rem;
-    padding: 20px;
+    font-size: 1rem;
+    padding: 15px;
     border-radius: 8px;
-    margin: 20px 0;
+    margin: 15px 0;
 }
 
 .upload-status.success {
@@ -798,74 +821,149 @@ body {
 
 /* 響應式設計 */
 @media (max-width: 768px) {
+    body {
+        overflow: auto; /* 允許小螢幕滾動 */
+    }
+    
     .container {
         padding: 10px;
+        height: auto;
+        min-height: 100vh;
+    }
+    
+    .screen {
+        height: auto;
+        min-height: calc(100vh - 20px);
+        overflow-y: visible;
     }
     
     .content {
         grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 20px;
     }
     
     .header h1 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
+    }
+    
+    #welcome-screen {
+        padding: 20px 25px;
+    }
+    
+    .experiment-content {
+        padding: 20px 25px;
     }
     
     .audio-players {
         grid-template-columns: 1fr;
+        gap: 15px;
     }
     
     .rating-buttons {
         grid-template-columns: 1fr;
-        max-width: 300px;
-        margin: 0 auto 20px;
+        max-width: 280px;
+        margin: 0 auto 15px;
     }
     
     .scale-container {
         grid-template-columns: 1fr;
-        max-width: 200px;
-        margin: 15px auto 0;
+        max-width: 180px;
+        margin: 10px auto 0;
     }
     
     .completion-stats {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 15px;
     }
     
     .progress-container {
-        padding: 15px 20px;
-    }
-    
-    .experiment-content {
-        padding: 20px;
+        padding: 12px 15px;
     }
 
     /* 遊戲載入頁面響應式 */
     .loading-content {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 15px;
     }
     
     .loading-header h2 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
     
     .level-info {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
     
     .info-card, .joke-card {
-        padding: 20px;
+        padding: 15px;
     }
     
     .timer-display {
         flex-direction: column;
-        gap: 10px;
-        padding: 15px;
+        gap: 8px;
+        padding: 12px;
     }
     
     .timer-number {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+    }
+    
+    /* 表單響應式 */
+    .participant-info {
+        padding: 15px;
+    }
+    
+    .form-group input, .form-group select {
+        padding: 10px;
+        font-size: 16px; /* 防止iOS縮放 */
+    }
+}
+
+/* 超小螢幕優化 */
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.4rem;
+    }
+    
+    .subtitle {
+        font-size: 0.95rem;
+    }
+    
+    .experiment-info, .participant-info {
+        padding: 12px;
+    }
+    
+    .rating-btn {
+        padding: 10px 6px;
+        min-height: 70px;
+    }
+    
+    .rating-number {
+        font-size: 1.1rem;
+    }
+    
+    .rating-label {
+        font-size: 0.7rem;
+    }
+    
+    .loading-header h2 {
+        font-size: 1.4rem;
+    }
+    
+    .timer-number {
+        font-size: 1.8rem;
+    }
+    
+    .info-card, .joke-card {
+        padding: 12px;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    .completion-stats {
+        padding: 15px;
     }
 }
 
