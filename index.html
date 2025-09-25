@@ -183,21 +183,60 @@
 
         <!-- 休息頁面 -->
         <div id="break-screen" class="screen">
-            <div class="break-content">
-                <h2><i class="fas fa-coffee"></i> 休息時間</h2>
-                <p>您已完成第 <span id="completed-block">1</span> 個區塊</p>
-                <p>請休息一下，準備進行下一個區塊</p>
-                
-                <div class="timer-container">
-                    <div class="timer-circle">
-                        <span id="timer">60</span>
-                    </div>
-                    <p>秒後自動繼續</p>
+            <div class="loading-screen">
+                <div class="loading-header">
+                    <h2><i class="fas fa-gamepad"></i> 關卡完成！</h2>
+                    <p class="level-info">第 <span id="completed-block">1</span> 關已完成，準備進入下一關...</p>
                 </div>
 
-                <button id="skip-break" class="btn btn-outline">
-                    跳過休息 <i class="fas fa-forward"></i>
-                </button>
+                <div class="loading-content">
+                    <!-- 載入進度條 -->
+                    <div class="loading-progress">
+                        <div class="progress-label">載入中</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" id="loading-progress"></div>
+                        </div>
+                        <div class="progress-percentage" id="loading-percentage">0%</div>
+                    </div>
+
+                    <!-- 小知識卡片 -->
+                    <div class="info-card">
+                        <h3><i class="fas fa-lightbulb"></i> 實驗小知識</h3>
+                        <p id="experiment-fact">
+                            Shadowing技術最初由語言學家Alexander Arguelles提出，是一種同步跟讀的語言學習方法。研究發現，這種技術不僅能提升語言流暢度，還能改善語音感知能力！
+                        </p>
+                    </div>
+
+                    <!-- 冷笑話卡片 -->
+                    <div class="joke-card">
+                        <h3><i class="fas fa-smile"></i> 研究室冷笑話</h3>
+                        <p id="random-joke">
+                            為什麼語音學家從不說謊？因為他們總是要「實話實說」(phonetically speaking)！ 😄
+                        </p>
+                    </div>
+
+                    <!-- 倒數計時器 -->
+                    <div class="timer-display">
+                        <div class="timer-label">自動開始倒數：</div>
+                        <div class="timer-number" id="timer">60</div>
+                        <div class="timer-unit">秒</div>
+                    </div>
+                </div>
+
+                <div class="loading-actions">
+                    <button id="skip-break" class="btn btn-outline">
+                        <i class="fas fa-forward"></i> 跳過等待，立即開始
+                    </button>
+                </div>
+
+                <!-- 載入動畫效果 -->
+                <div class="loading-particles">
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                </div>
             </div>
         </div>
 

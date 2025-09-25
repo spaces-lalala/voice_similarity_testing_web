@@ -284,7 +284,71 @@ class ExperimentController {
     showBreakScreen() {
         document.getElementById('completed-block').textContent = this.state.currentBlock - 1;
         this.showScreen('break-screen');
+        this.startGameLoadingScreen();
+    }
+
+    startGameLoadingScreen() {
+        // 顯示隨機小知識和冷笑話
+        this.displayRandomContent();
+        
+        // 載入進度條動畫
+        this.animateLoadingProgress();
+        
+        // 開始倒數計時器
         this.startBreakTimer();
+    }
+
+    displayRandomContent() {
+        // 實驗小知識庫
+        const facts = [
+            "Shadowing技術最初由語言學家Alexander Arguelles提出，是一種同步跟讀的語言學習方法。研究發現，這種技術不僅能提升語言流暢度，還能改善語音感知能力！",
+            "人類大腦處理語音的速度約為每秒20-30個音素，而Shadowing練習可以提高這個處理速度，增強語音工作記憶！",
+            "研究顯示，定期進行Shadowing練習的人在語音識別測試中的準確率可以提升25%以上！",
+            "Shadowing不只是模仿，它涉及複雜的認知過程：聽覺輸入、語音分析、記憶存儲和語音輸出的同步進行！",
+            "有趣的事實：專業同聲傳譯員經常使用Shadowing技術來訓練，因為它能提高語音處理的流暢度和準確性！"
+        ];
+
+        // 冷笑話庫
+        const jokes = [
+            "為什麼語音學家從不說謊？因為他們總是要「實話實說」(phonetically speaking)！ 😄",
+            "語言學家的最愛運動是什麼？語音體操！因為要練習各種「音」體美姿勢！ 🤸‍♀️",
+            "為什麼電腦學不會Shadowing？因為它只會「複製貼上」，不會「聽音跟讀」！ 💻",
+            "語音實驗室最受歡迎的飲料是什麼？「音」料（飲料）！特別是「聲」啤酒！ 🍺",
+            "為什麼Shadowing練習這麼累？因為要一邊聽一邊說，根本是「一心二用」的極限運動！ 🏃‍♂️",
+            "語言學教授為什麼總是很忙？因為他們要處理各種「語音」公事！ 📚"
+        ];
+
+        // 隨機選擇內容
+        const randomFact = facts[Math.floor(Math.random() * facts.length)];
+        const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
+
+        document.getElementById('experiment-fact').textContent = randomFact;
+        document.getElementById('random-joke').textContent = randomJoke;
+    }
+
+    animateLoadingProgress() {
+        const progressBar = document.getElementById('loading-progress');
+        const progressPercentage = document.getElementById('loading-percentage');
+        let progress = 0;
+
+        const progressInterval = setInterval(() => {
+            // 模擬載入進度（稍微不規則的增長）
+            const increment = Math.random() * 3 + 1;
+            progress += increment;
+            
+            if (progress > 100) progress = 100;
+            
+            progressBar.style.width = progress + '%';
+            progressPercentage.textContent = Math.floor(progress) + '%';
+
+            if (progress >= 100) {
+                clearInterval(progressInterval);
+                // 進度條完成後稍微延遲
+                setTimeout(() => {
+                    progressPercentage.textContent = '準備完成！';
+                }, 500);
+            }
+        }, 50);
     }
 
     startBreakTimer() {
