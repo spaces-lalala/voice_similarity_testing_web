@@ -1,0 +1,45 @@
+title: Shadowing 語音相似度評分實驗
+description: 國立政治大學語言學研究所 - 學術研究實驗網站
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# 網站設定
+lang: zh-TW
+timezone: Asia/Taipei
+
+# SEO 設定
+author: 國立政治大學語言學研究所
+email: your-email@nccu.edu.tw
+
+# 社群媒體
+github_username: your-github-username
+
+# 導航選單 (如果需要)
+header_pages:
+  - index.html
+
+# 排除檔案
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+# Markdown 設定
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+# 永久連結設定
+permalink: pretty

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadowing 語音相似度評分實驗</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- 歡迎頁面 -->
+        <div id="welcome-screen" class="screen active">
+            <div class="header">
+                <h1><i class="fas fa-headphones"></i> Shadowing 語音相似度評分實驗</h1>
+                <p class="subtitle">國立政治大學語言學研究所</p>
+            </div>
+            
+            <div class="content">
+                <div class="experiment-info">
+                    <h2>實驗說明</h2>
+                    <ul>
+                        <li>本實驗共有 <strong>10個區塊</strong>，每個區塊包含 <strong>5對音檔</strong></li>
+                        <li>請仔細聆聽每對音檔，並評估其相似度（1-7分）</li>
+                        <li>每個區塊完成後會有 <strong>1分鐘休息時間</strong></li>
+                        <li>請在安靜的環境中配戴耳機進行實驗</li>
+                        <li>實驗總時長約 <strong>25-30分鐘</strong></li>
+                    </ul>
+                    
+                    <div class="rating-scale">
+                        <h3>評分標準</h3>
+                        <div class="scale-container">
+                            <div class="scale-item">
+                                <span class="scale-number">1</span>
+                                <span class="scale-label">完全不相似</span>
+                            </div>
+                            <div class="scale-item">
+                                <span class="scale-number">2</span>
+                                <span class="scale-label">非常不相似</span>
+                            </div>
+                            <div class="scale-item">
+                                <span class="scale-number">3</span>
+                                <span class="scale-label">不相似</span>
+                            </div>
+                            <div class="scale-item">
+                                <span class="scale-number">4</span>
+                                <span class="scale-label">普通</span>
+                            </div>
+                            <div class="scale-item">
+                                <span class="scale-number">5</span>
+                                <span class="scale-label">相似</span>
+                            </div>
+                            <div class="scale-item">
+                                <span class="scale-number">6</span>
+                                <span class="scale-label">非常相似</span>
+                            </div>
+                            <div class="scale-item">
+                                <span class="scale-number">7</span>
+                                <span class="scale-label">完全相似</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="participant-info">
+                    <h3>參與者資訊</h3>
+                    <form id="participant-form">
+                        <div class="form-group">
+                            <label for="participantId">參與者編號：</label>
+                            <input type="text" id="participantId" name="participantId" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">年齡：</label>
+                            <input type="number" id="age" name="age" min="18" max="100" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">性別：</label>
+                            <select id="gender" name="gender" required>
+                                <option value="">請選擇</option>
+                                <option value="male">男</option>
+                                <option value="female">女</option>
+                                <option value="other">其他</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nativeLanguage">母語：</label>
+                            <input type="text" id="nativeLanguage" name="nativeLanguage" required>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <label>
+                                <input type="checkbox" id="consent" name="consent" required>
+                                我已閱讀並同意參與此研究實驗，了解實驗內容與目的
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                
+                <button id="start-experiment" class="btn btn-primary" disabled>
+                    <i class="fas fa-play"></i> 開始實驗
+                </button>
+            </div>
+        </div>
+
+        <!-- 實驗頁面 -->
+        <div id="experiment-screen" class="screen">
+            <div class="progress-container">
+                <div class="progress-info">
+                    <span id="current-block">區塊 1</span> / 10
+                    <span class="separator">|</span>
+                    <span id="current-pair">第 1 對</span> / 5
+                </div>
+                <div class="progress-bar">
+                    <div id="progress-fill"></div>
+                </div>
+            </div>
+
+            <div class="experiment-content">
+                <div class="audio-section">
+                    <h3>請仔細聆聽以下兩段音檔</h3>
+                    
+                    <div class="audio-players">
+                        <div class="audio-player">
+                            <div class="player-header">
+                                <h4><i class="fas fa-volume-up"></i> 原始音檔</h4>
+                            </div>
+                            <audio id="original-audio" controls preload="metadata">
+                                您的瀏覽器不支援音頻播放。
+                            </audio>
+                            <button class="btn btn-secondary replay-btn" data-audio="original">
+                                <i class="fas fa-redo"></i> 重播
+                            </button>
+                        </div>
+
+                        <div class="audio-player">
+                            <div class="player-header">
+                                <h4><i class="fas fa-microphone"></i> Shadowing 音檔</h4>
+                            </div>
+                            <audio id="shadowing-audio" controls preload="metadata">
+                                您的瀏覽器不支援音頻播放。
+                            </audio>
+                            <button class="btn btn-secondary replay-btn" data-audio="shadowing">
+                                <i class="fas fa-redo"></i> 重播
+                            </button>
+                        </div>
+                    </div>
+
+                    <button id="play-both" class="btn btn-outline">
+                        <i class="fas fa-play-circle"></i> 順序播放兩段音檔
+                    </button>
+                </div>
+
+                <div class="rating-section">
+                    <h3>請評估兩段音檔的相似度</h3>
+                    <div class="rating-buttons">
+                        <button class="rating-btn" data-rating="1">
+                            <span class="rating-number">1</span>
+                            <span class="rating-label">完全不相似</span>
+                        </button>
+                        <button class="rating-btn" data-rating="2">
+                            <span class="rating-number">2</span>
+                            <span class="rating-label">非常不相似</span>
+                        </button>
+                        <button class="rating-btn" data-rating="3">
+                            <span class="rating-number">3</span>
+                            <span class="rating-label">不相似</span>
+                        </button>
+                        <button class="rating-btn" data-rating="4">
+                            <span class="rating-number">4</span>
+                            <span class="rating-label">普通</span>
+                        </button>
+                        <button class="rating-btn" data-rating="5">
+                            <span class="rating-number">5</span>
+                            <span class="rating-label">相似</span>
+                        </button>
+                        <button class="rating-btn" data-rating="6">
+                            <span class="rating-number">6</span>
+                            <span class="rating-label">非常相似</span>
+                        </button>
+                        <button class="rating-btn" data-rating="7">
+                            <span class="rating-number">7</span>
+                            <span class="rating-label">完全相似</span>
+                        </button>
+                    </div>
+                    
+                    <div class="selected-rating">
+                        <span>已選擇評分：</span>
+                        <span id="selected-score">尚未評分</span>
+                    </div>
+                </div>
+
+                <div class="navigation">
+                    <button id="next-pair" class="btn btn-primary" disabled>
+                        下一對 <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 休息頁面 -->
+        <div id="break-screen" class="screen">
+            <div class="break-content">
+                <h2><i class="fas fa-coffee"></i> 休息時間</h2>
+                <p>您已完成第 <span id="completed-block">1</span> 個區塊</p>
+                <p>請休息一下，準備進行下一個區塊</p>
+                
+                <div class="timer-container">
+                    <div class="timer-circle">
+                        <span id="timer">60</span>
+                    </div>
+                    <p>秒後自動繼續</p>
+                </div>
+
+                <button id="skip-break" class="btn btn-outline">
+                    跳過休息 <i class="fas fa-forward"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 完成頁面 -->
+        <div id="completion-screen" class="screen">
+            <div class="completion-content">
+                <h2><i class="fas fa-check-circle"></i> 實驗完成</h2>
+                <p>感謝您參與本次實驗！</p>
+                <p>您的評分數據正在上傳至 Google 表單...</p>
+                
+                <div class="completion-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">10</span>
+                        <span class="stat-label">個區塊</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">50</span>
+                        <span class="stat-label">對音檔</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="total-time">0</span>
+                        <span class="stat-label">分鐘</span>
+                    </div>
+                </div>
+
+                <div id="upload-status" class="upload-status">
+                    <i class="fas fa-spinner fa-spin"></i> 正在上傳數據...
+                </div>
+
+                <button id="download-data" class="btn btn-outline" style="display: none;">
+                    <i class="fas fa-download"></i> 下載數據備份
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google Forms iframe (hidden) -->
+    <iframe id="google-form" style="display: none;" src=""></iframe>
+
+    <script src="js/experiment.js"></script>
+</body>
+</html>
